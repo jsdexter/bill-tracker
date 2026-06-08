@@ -6,6 +6,8 @@ import {
   ordinalDay,
   getPaydaysInMonth,
   formatShortDate,
+  isoDate,
+  isInWeek,
 } from './dates';
 import type { Income } from '../types';
 
@@ -95,5 +97,21 @@ describe('getPaydaysInMonth', () => {
 describe('formatShortDate', () => {
   it('formats date as "Jun 2"', () => {
     expect(formatShortDate(new Date('2026-06-02'))).toBe('Jun 2');
+  });
+});
+
+describe('isoDate', () => {
+  it('returns YYYY-MM-DD string matching local date', () => {
+    const d = new Date(2026, 5, 2); // local June 2
+    expect(isoDate(d)).toBe('2026-06-02');
+  });
+});
+
+describe('isInWeek', () => {
+  it('returns true for a date within the week', () => {
+    const { start, end } = getWeekRange(new Date('2026-06-10'));
+    expect(isInWeek(new Date(2026, 5, 9), start, end)).toBe(true);  // Jun 9 (Mon)
+    expect(isInWeek(new Date(2026, 5, 14), start, end)).toBe(true); // Jun 14 (Sun)
+    expect(isInWeek(new Date(2026, 5, 7), start, end)).toBe(false); // Jun 7 (prev Sun)
   });
 });

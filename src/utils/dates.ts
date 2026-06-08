@@ -41,8 +41,9 @@ export function getPaydaysInMonth(income: Income, year: number, month: number): 
   const monthEnd = new Date(year, month, 0); // last day of month
 
   if (income.frequency === 'monthly') {
-    const d = new Date(year, month - 1, anchor.getDate());
-    if (d >= monthStart && d <= monthEnd) result.push(d);
+    const clampedDay = Math.min(anchor.getDate(), monthEnd.getDate());
+    const d = new Date(year, month - 1, clampedDay);
+    result.push(d);
     return result;
   }
 
@@ -81,11 +82,14 @@ export function getPaydaysInMonth(income: Income, year: number, month: number): 
 }
 
 export function isoDate(date: Date): string {
-  return date.toISOString().slice(0, 10);
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
 }
 
 export function isInWeek(date: Date, weekStart: Date, weekEnd: Date): boolean {
   const d = new Date(date);
-  d.setHours(0, 0, 0, 0);
+  d.setUTCHours(0, 0, 0, 0);
   return d >= weekStart && d <= weekEnd;
 }
