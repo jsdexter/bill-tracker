@@ -10,6 +10,7 @@ export default defineConfig({
       manifest: {
         name: 'Bill Tracker',
         short_name: 'Bills',
+        start_url: '/',
         theme_color: '#0f0f1a',
         background_color: '#0f0f1a',
         display: 'standalone',
