@@ -35,7 +35,7 @@ export default function BillsScreen() {
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <div style={{ fontWeight: 600 }}>${bill.amount.toLocaleString()}</div>
+              <div style={{ fontWeight: 600 }}>${bill.amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
               <div style={{ color: '#555', fontSize: 11 }}>edit ›</div>
             </div>
           </div>
@@ -49,7 +49,7 @@ export default function BillsScreen() {
 
       <div style={{ marginTop: 16, paddingTop: 12, borderTop: '1px solid #1e1e2e', display: 'flex', justifyContent: 'space-between', color: '#888', fontSize: 12 }}>
         <div>{bills.length} bill{bills.length !== 1 ? 's' : ''}</div>
-        <div style={{ color: '#f87171' }}>${monthlyTotal.toLocaleString()} / month</div>
+        <div style={{ color: '#f87171' }}>${monthlyTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} / month</div>
       </div>
 
       {adding && (
@@ -64,6 +64,7 @@ export default function BillsScreen() {
 
       {editing && (
         <BillForm
+          key={editing.id}
           initial={editing}
           onSave={async draft => {
             await updateBill(editing.id, draft);
