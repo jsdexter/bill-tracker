@@ -6,8 +6,10 @@ export function getWeekRange(date: Date): { start: Date; end: Date } {
   const diffToMon = day === 0 ? -6 : 1 - day;
   const start = new Date(date);
   start.setUTCDate(date.getUTCDate() + diffToMon);
+  start.setUTCHours(0, 0, 0, 0);
   const end = new Date(start);
   end.setUTCDate(start.getUTCDate() + 6);
+  end.setUTCHours(0, 0, 0, 0);
   return { start, end };
 }
 
