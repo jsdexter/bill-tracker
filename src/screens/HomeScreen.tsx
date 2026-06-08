@@ -114,7 +114,7 @@ export default function HomeScreen() {
         </div>
         <div style={{ textAlign: 'right' }}>
           <div style={{ color: net >= 0 ? '#4ade80' : '#f87171', fontSize: 12, fontWeight: 700 }}>
-            {net >= 0 ? '+' : ''}${net.toLocaleString()} net
+            {net >= 0 ? `+$${net.toLocaleString()}` : `-$${Math.abs(net).toLocaleString()}`} net
           </div>
           <div style={{ color: '#888', fontSize: 10 }}>
             ${incomeTotal.toLocaleString()} in · ${totalBills.toLocaleString()} out
