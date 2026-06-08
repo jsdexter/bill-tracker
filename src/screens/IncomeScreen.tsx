@@ -21,7 +21,6 @@ export default function IncomeScreen() {
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Income | null>(null);
 
-  const now = new Date();
   const monthlyTotal = incomes.reduce((s, i) => s + monthlyEquivalent(i), 0);
 
   function nextPayday(income: Income): string {
@@ -29,7 +28,7 @@ export default function IncomeScreen() {
     today.setHours(0, 0, 0, 0);
     // Check this month and next month
     for (let offset = 0; offset <= 1; offset++) {
-      const d = new Date(now.getFullYear(), now.getMonth() + offset, 1);
+      const d = new Date(today.getFullYear(), today.getMonth() + offset, 1);
       const days = getPaydaysInMonth(income, d.getFullYear(), d.getMonth() + 1);
       const future = days.find(day => { const dd = new Date(day); dd.setHours(0,0,0,0); return dd >= today; });
       if (future) return formatShortDate(future);

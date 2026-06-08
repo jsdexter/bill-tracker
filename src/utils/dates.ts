@@ -48,7 +48,7 @@ export function getPaydaysInMonth(income: Income, year: number, month: number): 
   }
 
   if (income.frequency === 'twice-monthly') {
-    const day1 = anchor.getDate();
+    const day1 = Math.min(anchor.getDate(), monthEnd.getDate());
     const day2 = Math.min(day1 + 15, monthEnd.getDate());
     const d1 = new Date(year, month - 1, day1);
     const d2 = new Date(year, month - 1, day2);
