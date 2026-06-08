@@ -55,8 +55,8 @@ export function IncomeProvider({ uid, children }: { uid: string | null; children
     const next = already
       ? income.receivedDates.filter(d => d !== iso)
       : [...income.receivedDates, iso];
-    await updateDoc(doc(db, 'users', uid, 'income', incomeId), { receivedDates: next });
     setIncomes(prev => prev.map(i => i.id === incomeId ? { ...i, receivedDates: next } : i));
+    await updateDoc(doc(db, 'users', uid, 'income', incomeId), { receivedDates: next });
   }, [uid, incomes]);
 
   const isReceived = useCallback((incomeId: string, date: Date): boolean => {
